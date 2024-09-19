@@ -1,15 +1,30 @@
-import { Text, TextInput, View, StyleSheet } from "react-native";
+import { Text, TextInput, View, StyleSheet, Alert } from "react-native";
 import PrimaryButton from "../../components/PrimaryButton";
 import { useState } from "react";
 
 const StartGameScreen = () => {
   const [enteredNumber, setEnteredNumber] = useState('');
 
+  const resetInputHandler = () => {
+    setEnteredNumber("");
+  }
+
   const numberInputHandler = (number) => {
     setEnteredNumber(number);
   }
 
   const confirmInputHandler = () => {
+    const chosenNumber = Number(enteredNumber);
+
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert(
+        "Invalid number",
+        "The guess has to be a number between 1 and 99",
+        [{ text: 'Okay', style: "destructive", onPress: resetInputHandler}]
+      );
+      return;
+    }
+
 
   }
 
