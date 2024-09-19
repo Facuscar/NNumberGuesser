@@ -9,10 +9,12 @@ export default function App() {
   const [pickedNumber, setPickedNumber] = useState();
 
   const pickNumberHandler = (pickedNumber) => {
+    console.log(pickedNumber);
+    
     setPickedNumber(pickedNumber);
   }
 
-  let screen = <StartGameScreen />
+  let screen = <StartGameScreen onPickNumber={pickNumberHandler} />
 
   if (pickedNumber) {
     screen = <GameScreen />
@@ -21,7 +23,7 @@ export default function App() {
   return (
     <LinearGradient colors={["#4e0329", "#ddb52f"]} style={styles.screen}>
       <ImageBackground source={require("./assets/images/background.png")} resizeMode='cover' style={styles.screen} imageStyle={styles.backgroundImage}>
-        <StartGameScreen onPickNumber={pickNumberHandler} />
+        {screen}
       </ImageBackground>
     </LinearGradient>
   );
