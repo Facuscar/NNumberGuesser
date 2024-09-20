@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, FlatList, Text } from "react-native";
 import Title from "../../components/ui/Title";
 import { useEffect, useState } from "react";
 import Number from "../../components/game/Number";
@@ -6,6 +6,7 @@ import PrimaryButton from "../../components/ui/PrimaryButton";
 import InstructionText from "../../components/ui/InstructionText";
 import Card from "../../components/ui/Card";
 import { Ionicons } from "@expo/vector-icons";
+import GuessLogItem from "../../components/game/GuessLogItem";
 
 function generateRandomBetween(min, max, exclude) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -20,7 +21,7 @@ function generateRandomBetween(min, max, exclude) {
 let minBoundary = 1;
 let maxBoundary = 100;
 
-const GameScreen = ({ userNumber, setIsGameOver }) => {
+const GameScreen = ({ userNumber, setIsGameOver, setGuessRounds, guessRounds }) => {
   const initialGuess = generateRandomBetween(1, 100, userNumber)
   const [currentGuess, setCurrentGuess] = useState(initialGuess);
 
@@ -40,6 +41,7 @@ const GameScreen = ({ userNumber, setIsGameOver }) => {
     }
     const newRandomNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
     setCurrentGuess(newRandomNumber);
+    setGuessRounds((state) => [newRandomNumber, ...state])
   }
   
   useEffect(() => {
@@ -52,6 +54,8 @@ const GameScreen = ({ userNumber, setIsGameOver }) => {
       setIsGameOver(true);
     }
   }, [currentGuess, userNumber])
+
+  const guessRoundsLength = guessRounds.length
 
   return (
     <View style={styles.screen}>
@@ -72,6 +76,9 @@ const GameScreen = ({ userNumber, setIsGameOver }) => {
           </View>
         </View>
       </Card>
+      <View style={styles.listContainer}>
+      <FlatList data={guessRounds} renderItem={(item) => <GuessLogItem guess={item.item} roundNumber={guessRoundsLength - item.index} />} keyExtractor={(item) => item} />
+      </View>
     </View>
   )
 }
@@ -92,5 +99,9 @@ const styles = StyleSheet.create({
   instructionText: {
     marginBottom: 12,
     textAlign: 'center'
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16,
   }
 })

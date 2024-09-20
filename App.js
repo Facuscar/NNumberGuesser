@@ -12,7 +12,7 @@ import GameOverScreen from './screens/GameOverScreen';
 export default function App() {
   const [pickedNumber, setPickedNumber] = useState();
   const [isGameOver, setIsGameOver] = useState(false);
-  const [guessRounds, setGuessRounds] = useState(0);
+  const [guessRounds, setGuessRounds] = useState([]);
 
   const [fontsLoaded] = useFonts({
     'open-sans': require("./assets/fonts/OpenSans-Regular.ttf"),
@@ -27,18 +27,18 @@ export default function App() {
 
   const startNewGameHandler = () => {
     setPickedNumber(null);
-    setGuessRounds(0);
+    setGuessRounds([]);
     setIsGameOver(false);
   }
 
   let screen = <StartGameScreen onPickNumber={pickNumberHandler} />
 
   if (pickedNumber) {
-    screen = <GameScreen userNumber={pickedNumber} setIsGameOver={setIsGameOver} />
+    screen = <GameScreen userNumber={pickedNumber} setIsGameOver={setIsGameOver} setGuessRounds={setGuessRounds} guessRounds={guessRounds} />
   }
 
   if (isGameOver) {
-    screen = <GameOverScreen userNumber={pickedNumber} roundsNumber={guessRounds} onStartNewGame={startNewGameHandler} />
+    screen = <GameOverScreen userNumber={pickedNumber} roundsNumber={guessRounds.length} onStartNewGame={startNewGameHandler} />
   }
   
   return (
