@@ -1,4 +1,5 @@
 import { Text, StyleSheet } from "react-native";
+import Colors from "../../constants/colors";
 
 const Title = ({ text }) => {
   return (
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: "#ddb52f",
+    color: Colors.accent500,
     padding: 12,
   }
 })
