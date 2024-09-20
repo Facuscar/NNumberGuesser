@@ -1,4 +1,4 @@
-import { StyleSheet, ImageBackground } from 'react-native';
+import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import StartGameScreen from './screens/StarGameScreen';
@@ -30,7 +30,9 @@ export default function App() {
   return (
     <LinearGradient colors={[Colors.primary800, Colors.accent500]} style={styles.screen}>
       <ImageBackground source={require("./assets/images/background.png")} resizeMode='cover' style={styles.screen} imageStyle={styles.backgroundImage}>
-        {screen}
+        <SafeAreaView style={styles.screen}>
+          {screen}
+        </SafeAreaView>
       </ImageBackground>
     </LinearGradient>
   );
