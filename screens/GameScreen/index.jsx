@@ -78,9 +78,7 @@ const GameScreen = ({ userNumber, setIsGameOver, setGuessRounds, guessRounds }) 
       </Card>
   </>
 
-  if (width > 500) {
-    console.log("HIGHER WIDTH");
-    
+  if (width > 500) {    
     content =
       <>
         <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
