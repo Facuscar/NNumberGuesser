@@ -1,4 +1,4 @@
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, Platform } from "react-native";
 
 const Title = ({ text }) => {
   return (
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     fontFamily: 'open-sans-bold',
     fontSize: 24,
     textAlign: 'center',
-    color: 'white',
+    color: Platform.OS === 'android' ? "yellow" : 'white',
     padding: 12,
   }
 })
